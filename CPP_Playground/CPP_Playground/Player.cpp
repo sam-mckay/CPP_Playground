@@ -16,7 +16,31 @@ namespace BattleshipGame
     {
     }
 
-    Coordinate Player::ChooseTarget()
+    bool Player::ChoosePreciseTarget(Coordinate target)
+    {
+        if (!HasTargetBeenSelectedPreviously(target))
+        {
+            if (IsTargetValid(target))
+            {
+                previousTargets.push_back(target);
+                return true;
+            }
+            else
+            {
+                //Target invalid
+                std::cout << "Target is outside the board range" << endl;
+                return false;
+            }
+        }
+        else
+        {
+            //Target already selected
+            std::cout << "Target has been selected previously" << endl;
+            return false;
+        }
+    }
+
+    Coordinate Player::ChooseRandomTarget()
     {
         if (previousTargets.size() == board.MaxCellsInBoard())
         {
@@ -52,5 +76,25 @@ namespace BattleshipGame
             }
         }
         return false;
+    }
+    bool Player::IsTargetValid(Coordinate target)
+    {
+        if (target.x >= board.rows)
+        {
+            return false;
+        }
+        else if (target.y >= board.columns)
+        {
+            return false;
+        }
+        else if (target.x < 0)
+        {
+            return false;
+        }
+        else if (target.y < 0)
+        {
+            return false;
+        }
+        return true;
     }
 }

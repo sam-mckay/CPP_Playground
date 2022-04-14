@@ -4,6 +4,7 @@
 #include <list>
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
 
 namespace BattleshipGame
 {
@@ -20,8 +21,10 @@ namespace BattleshipGame
 		Player();
 		Player(BattleshipBoard _board);
 		void TakeTurn();
-		Coordinate ChooseTarget();
-		bool HasTargetBeenSelectedPreviously(Coordinate target);		
+		bool ChoosePreciseTarget(Coordinate target);
+		Coordinate ChooseRandomTarget();
+		bool HasTargetBeenSelectedPreviously(Coordinate target);	
+		bool IsTargetValid(Coordinate target);
 	};
 
 }
