@@ -10,7 +10,7 @@ namespace BattleshipGame
 {
 	class Player
 	{
-	private:
+	protected:
 		list<Coordinate> previousTargets;
 		BattleshipBoard board;
 	public:
@@ -19,8 +19,10 @@ namespace BattleshipGame
 		list<Coordinate> GetPreviousTargets() { return previousTargets; };
 		
 		Player();
-		Player(BattleshipBoard _board);
-		void TakeTurn();
+		Player(BattleshipBoard _board, list<Battleship> _ships);
+
+		virtual list<Battleship> GetShips();
+		virtual Coordinate TakeTurn();
 		bool ChoosePreciseTarget(Coordinate target);
 		Coordinate ChooseRandomTarget();
 		bool HasTargetBeenSelectedPreviously(Coordinate target);	

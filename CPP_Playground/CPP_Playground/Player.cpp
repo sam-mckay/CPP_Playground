@@ -6,14 +6,24 @@ namespace BattleshipGame
     Player::Player()
     {
     }
-    Player::Player(BattleshipBoard _board)
+    Player::Player(BattleshipBoard _board, list<Battleship> _ships)
     {
         board = _board;
+        ships = _ships;
+
         srand(time(NULL));
     }
 
-    void Player::TakeTurn()
+    list<Battleship> Player::GetShips()
     {
+        return ships;
+    }
+
+    Coordinate Player::TakeTurn()
+    {
+        cout << "Test" << endl;
+
+        return ChooseRandomTarget();
     }
 
     bool Player::ChoosePreciseTarget(Coordinate target)
@@ -28,14 +38,14 @@ namespace BattleshipGame
             else
             {
                 //Target invalid
-                std::cout << "Target is outside the board range" << endl;
+                cout << "Target is outside the board range" << endl;
                 return false;
             }
         }
         else
         {
             //Target already selected
-            std::cout << "Target has been selected previously" << endl;
+            cout << "Target has been selected previously" << endl;
             return false;
         }
     }

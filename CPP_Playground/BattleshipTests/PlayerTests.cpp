@@ -16,7 +16,8 @@ namespace PlayerTests
 		TEST_METHOD_INITIALIZE(Setup)
 		{
 			BattleshipBoard board = BattleshipBoard(10, 10);
-			m_player = Player(board);
+			list<Battleship> ships = board.GenerateShips(3, 3);
+			m_player = Player(board, ships);
 		}
 
 		TEST_METHOD(CanChooseASingleTarget)
@@ -57,7 +58,8 @@ namespace PlayerTests
 		TEST_METHOD(HandlesMoreTargetsThanBoardCells)
 		{
 			BattleshipBoard board = BattleshipBoard(2, 2);
-			Player player = Player(board);
+			list<Battleship> ships = board.GenerateShips(1, 1);
+			Player player = Player(board, ships);
 
 			player.ChooseRandomTarget();
 			player.ChooseRandomTarget();
