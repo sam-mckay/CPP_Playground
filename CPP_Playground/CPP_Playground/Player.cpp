@@ -18,21 +18,26 @@ namespace BattleshipGame
 
     Coordinate Player::ChooseTarget()
     {
+        if (previousTargets.size() == board.MaxCellsInBoard())
+        {
+            //Early Exit, there are no possible targets;
+            return Coordinate(-1,-1);
+        }
+
         Coordinate target;
-        int index = 0;
         do
         {
             int x = rand() % board.rows + 0;
             int y = rand() % board.columns + 0;
 
-            target = Coordinate(x, y);
-            
+            target = Coordinate(x, y);            
 
-            index++;
-
-        } while (HasTargetBeenSelectedPreviously(target) && index < board.MaxCellsInBoard());
+        } while (HasTargetBeenSelectedPreviously(target));
         
-        previousTargets.push_back(target);
+        if (!HasTargetBeenSelectedPreviously(target))
+        {
+            previousTargets.push_back(target);
+        }
 
         return target;
     }

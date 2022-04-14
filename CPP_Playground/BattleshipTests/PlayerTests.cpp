@@ -67,7 +67,6 @@ namespace PlayerTests
 
 			list<Coordinate> previousTargets = player.GetPreviousTargets();
 
-			//Assert::IsTrue(previousTargets.size() == 4);
 			Assert::AreEqual(4, (int)previousTargets.size());
 		}
 	};
