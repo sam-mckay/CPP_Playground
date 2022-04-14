@@ -1,7 +1,7 @@
 #pragma once
 #include "Direction.h"
 #include "Coordinate.h"
-#include <vector>;
+#include <vector>
 
 using namespace std;
 
@@ -14,7 +14,10 @@ namespace BattleshipGame
 		Direction direction;
 		Coordinate location;
 		bool destroyed = false;
+
+		Battleship();
 		Battleship(int size, Coordinate location, Direction direction);
+
 		bool CheckIfHit(Coordinate targetCell);
 		vector<Coordinate> GetCellsOccupiedByShip();
 		Coordinate NextCellInDirection(Coordinate currentCell);

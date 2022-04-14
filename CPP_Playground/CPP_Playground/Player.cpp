@@ -51,10 +51,7 @@ namespace BattleshipGame
         Coordinate target;
         do
         {
-            int x = rand() % board.rows + 0;
-            int y = rand() % board.columns + 0;
-
-            target = Coordinate(x, y);            
+            target = board.GenerateRandomCoordinate();
 
         } while (HasTargetBeenSelectedPreviously(target));
         
@@ -77,24 +74,16 @@ namespace BattleshipGame
         }
         return false;
     }
+
     bool Player::IsTargetValid(Coordinate target)
     {
-        if (target.x >= board.rows)
+        if (board.IsCoordinateOnBoard(target))
+        {
+            return true;
+        }
+        else
         {
             return false;
         }
-        else if (target.y >= board.columns)
-        {
-            return false;
-        }
-        else if (target.x < 0)
-        {
-            return false;
-        }
-        else if (target.y < 0)
-        {
-            return false;
-        }
-        return true;
     }
 }
