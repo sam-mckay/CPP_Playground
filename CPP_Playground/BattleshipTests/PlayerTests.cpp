@@ -21,7 +21,7 @@ namespace PlayerTests
 
 		TEST_METHOD(CanChooseASingleTarget)
 		{
-			m_player.ChooseTarget();
+			m_player.ChooseRandomTarget();
 
 			list<Coordinate> previousTargets = m_player.GetPreviousTargets();
 
@@ -30,8 +30,8 @@ namespace PlayerTests
 
 		TEST_METHOD(CanChooseAMultipleTargets)
 		{
-			m_player.ChooseTarget();
-			m_player.ChooseTarget();
+			m_player.ChooseRandomTarget();
+			m_player.ChooseRandomTarget();
 
 			list<Coordinate> previousTargets = m_player.GetPreviousTargets();
 
@@ -47,7 +47,7 @@ namespace PlayerTests
 
 			Assert::IsFalse(targetFound);
 
-			m_player.ChooseTarget();
+			m_player.ChooseRandomTarget();
 			list<Coordinate> previousTargets = m_player.GetPreviousTargets();			
 			bool wasSelected = m_player.HasTargetBeenSelectedPreviously(previousTargets.front());
 
@@ -59,15 +59,97 @@ namespace PlayerTests
 			BattleshipBoard board = BattleshipBoard(2, 2);
 			Player player = Player(board);
 
-			player.ChooseTarget();
-			player.ChooseTarget();
-			player.ChooseTarget();
-			player.ChooseTarget();
-			player.ChooseTarget();
+			player.ChooseRandomTarget();
+			player.ChooseRandomTarget();
+			player.ChooseRandomTarget();
+			player.ChooseRandomTarget();
+			player.ChooseRandomTarget();
 
 			list<Coordinate> previousTargets = player.GetPreviousTargets();
 
 			Assert::AreEqual(4, (int)previousTargets.size());
+		}
+
+		TEST_METHOD(CanChoosePreciseTarget_Valid)
+		{
+			Coordinate target = Coordinate(3, 2);
+
+			bool isTargetSelected = m_player.ChoosePreciseTarget(target);
+
+		 	list<Coordinate> previousTargets = m_player.GetPreviousTargets();
+
+			Assert::IsTrue(isTargetSelected);
+			Assert::IsTrue(target == previousTargets.front());
+		}
+
+		TEST_METHOD(CanChoosePreciseTarget_Invalid)
+		{
+			Coordinate target = Coordinate(-3, 2);
+
+			bool isTargetSelected = m_player.ChoosePreciseTarget(target);
+
+			list<Coordinate> previousTargets = m_player.GetPreviousTargets();
+
+			Assert::IsFalse(isTargetSelected);
+		}
+
+		TEST_METHOD(CanValidateTargets_Valid)
+		{
+			Coordinate target = Coordinate(3, 2);
+			bool isTargetValid = m_player.IsTargetValid(target);
+
+			Assert::IsTrue(isTargetValid);
+		}
+
+		TEST_METHOD(CanValidateTargets_Invalid_BelowRange)
+		{
+			Coordinate target = Coordinate(-1, -2);
+			bool isTargetValid = m_player.IsTargetValid(target);
+
+			Assert::IsFalse(isTargetValid);
+		}
+
+		TEST_METHOD(CanValidateTargets_Invalid_AboveRange)
+		{
+			Coordinate target = Coordinate(30, 26);			
+
+			bool isTargetValid = m_player.IsTargetValid(target);
+			
+			Assert::IsFalse(isTargetValid);			
+		}
+
+		TEST_METHOD(CanValidateTargets_Invalid_PartialAboveRange)
+		{
+			Coordinate target = Coordinate(30, 5);
+			Coordinate target2 = Coordinate(5, 30);
+			bool isTargetValid = m_player.IsTargetValid(target);
+			bool isTargetValid2 = m_player.IsTargetValid(target2);
+
+			Assert::IsFalse(isTargetValid);
+			Assert::IsFalse(isTargetValid2);
+		}
+
+		TEST_METHOD(CanValidateTargets_Invalid_PartialBelowRange)
+		{
+			Coordinate target = Coordinate(1, -2);
+			Coordinate target2 = Coordinate(-1, 2);
+			bool isTargetValid = m_player.IsTargetValid(target);
+			bool isTargetValid2 = m_player.IsTargetValid(target2);
+
+			Assert::IsFalse(isTargetValid);
+			Assert::IsFalse(isTargetValid2);
+		}
+
+		TEST_METHOD(CanValidateTargets_Invalid_AboveAndBelowRange)
+		{
+			Coordinate target = Coordinate(-1, 22);
+			Coordinate target2 = Coordinate(11, -2);
+
+			bool isTargetValid = m_player.IsTargetValid(target);
+			bool isTargetValid2 = m_player.IsTargetValid(target2);
+
+			Assert::IsFalse(isTargetValid);
+			Assert::IsFalse(isTargetValid2);
 		}
 	};
 }
