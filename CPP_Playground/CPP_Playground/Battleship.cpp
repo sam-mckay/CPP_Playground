@@ -4,6 +4,13 @@
 
 namespace BattleshipGame
 {
+    Battleship::Battleship()
+    {
+        Battleship::size = 0;
+        Battleship::location = Coordinate(0,0);
+        Battleship::direction = Direction::North;
+    }
+
     Battleship::Battleship(int size, Coordinate location, Direction direction)
     {
         Battleship::size = size;
