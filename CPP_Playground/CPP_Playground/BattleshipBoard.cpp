@@ -36,7 +36,11 @@ namespace BattleshipGame
 			} while (!IsValidShipLocation(ship));
 
 			ships.push_back(ship);
-			occupiedCells.assign(ship.GetCellsOccupiedByShip().begin(), ship.GetCellsOccupiedByShip().end());
+
+			for (Coordinate coord : ship.GetCellsOccupiedByShip())
+			{
+				occupiedCells.push_back(coord);
+			}			
 		}
 		
 		return ships;
