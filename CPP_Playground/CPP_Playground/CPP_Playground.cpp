@@ -2,6 +2,14 @@
 //
 
 #include <iostream>
+#include "GameManager.h"
+#include "Battleship.h"
+#include "BattleshipBoard.h"
+#include "Player.h"
+#include "EnemyPlayer.h"
+#include "Direction.h"
+#include "Turn.h"
+
 
 using namespace std;
 
@@ -10,7 +18,15 @@ int main()
     cout << "Hello World!\n" << endl;
 
 
+    BattleshipGame::GameManager game;
+    game.NewGame(1, 10, 10);
 
+    while (game.isActive)
+    {
+        game.NextTurn();
+    }
+
+    return 0;
 }
 
 /*

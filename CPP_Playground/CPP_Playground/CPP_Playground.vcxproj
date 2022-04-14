@@ -148,6 +148,7 @@
     <ClCompile Include="EnemyPlayer.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Turn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Battleship.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="EnemyPlayer.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Turn.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
