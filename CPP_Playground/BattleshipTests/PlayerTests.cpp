@@ -93,63 +93,6 @@ namespace PlayerTests
 			Assert::IsFalse(isTargetSelected);
 		}
 
-		TEST_METHOD(CanValidateTargets_Valid)
-		{
-			Coordinate target = Coordinate(3, 2);
-			bool isTargetValid = m_player.IsTargetValid(target);
-
-			Assert::IsTrue(isTargetValid);
-		}
-
-		TEST_METHOD(CanValidateTargets_Invalid_BelowRange)
-		{
-			Coordinate target = Coordinate(-1, -2);
-			bool isTargetValid = m_player.IsTargetValid(target);
-
-			Assert::IsFalse(isTargetValid);
-		}
-
-		TEST_METHOD(CanValidateTargets_Invalid_AboveRange)
-		{
-			Coordinate target = Coordinate(30, 26);			
-
-			bool isTargetValid = m_player.IsTargetValid(target);
-			
-			Assert::IsFalse(isTargetValid);			
-		}
-
-		TEST_METHOD(CanValidateTargets_Invalid_PartialAboveRange)
-		{
-			Coordinate target = Coordinate(30, 5);
-			Coordinate target2 = Coordinate(5, 30);
-			bool isTargetValid = m_player.IsTargetValid(target);
-			bool isTargetValid2 = m_player.IsTargetValid(target2);
-
-			Assert::IsFalse(isTargetValid);
-			Assert::IsFalse(isTargetValid2);
-		}
-
-		TEST_METHOD(CanValidateTargets_Invalid_PartialBelowRange)
-		{
-			Coordinate target = Coordinate(1, -2);
-			Coordinate target2 = Coordinate(-1, 2);
-			bool isTargetValid = m_player.IsTargetValid(target);
-			bool isTargetValid2 = m_player.IsTargetValid(target2);
-
-			Assert::IsFalse(isTargetValid);
-			Assert::IsFalse(isTargetValid2);
-		}
-
-		TEST_METHOD(CanValidateTargets_Invalid_AboveAndBelowRange)
-		{
-			Coordinate target = Coordinate(-1, 22);
-			Coordinate target2 = Coordinate(11, -2);
-
-			bool isTargetValid = m_player.IsTargetValid(target);
-			bool isTargetValid2 = m_player.IsTargetValid(target2);
-
-			Assert::IsFalse(isTargetValid);
-			Assert::IsFalse(isTargetValid2);
-		}
+		
 	};
 }
