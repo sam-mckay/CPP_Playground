@@ -20,9 +20,39 @@ namespace BattleshipGame
 
     bool Battleship::CheckIfHit(Coordinate targetCell)
     {
-
+        for (Coordinate coord : GetCellsOccupiedByShip())
+        {
+            if (coord == targetCell)
+            {
+                hitCells.push_back(Coordinate(targetCell.x, targetCell.y));
+                return true;
+            }
+        }
 
         return false;
+    }
+
+    bool Battleship::CheckIfDestroyed()
+    {
+        int damagedCells = 0;
+        for (Coordinate coord : GetCellsOccupiedByShip())
+        {
+            bool inHitList = (std::find(hitCells.begin(), hitCells.end(), coord) != hitCells.end());
+            if (inHitList)
+            {
+                damagedCells++;
+                continue;
+            }
+        }
+
+        if (damagedCells == size)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     vector<Coordinate> Battleship::GetCellsOccupiedByShip()
