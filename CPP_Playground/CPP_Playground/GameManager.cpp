@@ -10,6 +10,8 @@ BattleshipGame::GameManager::GameManager()
 
 void BattleshipGame::GameManager::NextTurn()
 {
+	vector<Battleship*> ships;
+
 	if (turnCount >= turnCap)
 	{
 		isActive = false;
@@ -21,18 +23,32 @@ void BattleshipGame::GameManager::NextTurn()
 	switch (turn)
 	{
 	case Turn::Player1:
-		selectedTarget = player.TakeTurn();		
+		selectedTarget = player.TakeTurn();	
+		ships = player.GetShips();
 		break;
 	case Turn::Player2:
 		selectedTarget = aiPlayer.TakeTurn();	
+		ships = aiPlayer.GetShips();
 		break;
 	default:
 		break;
 	}
 
-	HandleHit(selectedTarget);
+	HandleHit(selectedTarget, ships);
 
 	turnCount++;
+
+	switch (turn)
+	{
+	case Turn::Player1:
+		turn = Turn::Player2;
+		break;
+	case Turn::Player2:
+		turn = Turn::Player1;
+		break;
+	default:
+		break;
+	}
 }
 
 void BattleshipGame::GameManager::NewGame(int shipCount, int boardX, int boardY, int _turnCap)
@@ -94,13 +110,13 @@ void BattleshipGame::GameManager::DEBUG_PrintShipLocations()
 	cout << endl;
 }
 
-void BattleshipGame::GameManager::HandleHit(Coordinate target)
+void BattleshipGame::GameManager::HandleHit(Coordinate target, vector<Battleship*> ships)
 {
 	int destroyedShips = 0;
 
-	for (int i = 0; i < playerShips.size(); i++)
+	for (int i = 0; i < ships.size(); i++)
 	{
-		Battleship *ship = playerShips[i];
+		Battleship *ship = ships[i];
 		if (ship->CheckIfHit(target))
 		{
 			cout << "Player " << (int)turn + 1 << "'s ship " << ship->id <<  " was hit! " << target.x << "," << target.y << endl;
@@ -113,7 +129,7 @@ void BattleshipGame::GameManager::HandleHit(Coordinate target)
 		}
 	}
 
-	if (destroyedShips == playerShips.size())
+	if (destroyedShips == ships.size())
 	{
 		cout << "Game Over " << endl;
 

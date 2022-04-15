@@ -27,7 +27,7 @@ namespace BattleshipGame
 
 		void NextTurn();
 		void NewGame(int shipCount, int boardX, int boardY, int _turnCap = 10);
-		void HandleHit(Coordinate target);
+		void HandleHit(Coordinate target, vector<Battleship*> ships);
 
 		//DEBUG
 		void DEBUG_PrintShipLocations();
