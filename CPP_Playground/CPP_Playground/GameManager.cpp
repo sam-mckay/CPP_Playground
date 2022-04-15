@@ -56,14 +56,14 @@ void BattleshipGame::GameManager::DEBUG_PrintShipLocations()
 {
 	cout << "Player 1's Ships" << endl;
 	int index = 0;
-	for (Battleship ship : player.GetShips())
+	for (Battleship* ship : player.GetShips())
 	{
 		cout << "Ship " << index << endl;
-		cout << "    Location: " << ship.location.x << "," << ship.location.y << endl;
-		cout << "    Direction: " << (int)ship.direction << endl;
-		cout << "    Size: " << ship.size;
+		cout << "    Location: " << ship->location.x << "," << ship->location.y << endl;
+		cout << "    Direction: " << (int)ship->direction << endl;
+		cout << "    Size: " << ship->size;
 		
-		for (Coordinate shipCoord : ship.GetCellsOccupiedByShip())
+		for (Coordinate shipCoord : ship->GetCellsOccupiedByShip())
 		{
 			cout << "    " << shipCoord.x << "," << shipCoord.y;
 		}
@@ -74,14 +74,14 @@ void BattleshipGame::GameManager::DEBUG_PrintShipLocations()
 
 	cout << "Player 2's Ships" << endl;
 	index = 0;
-	for (Battleship ship : aiPlayer.GetShips())
+	for (Battleship* ship : aiPlayer.GetShips())
 	{
 		cout << "Ship " << index << endl;
-		cout << "    Location: " << ship.location.x << "," << ship.location.y << endl;
-		cout << "    Direction: " << (int)ship.direction << endl;
-		cout << "    Size: " << ship.size;
+		cout << "    Location: " << ship->location.x << "," << ship->location.y << endl;
+		cout << "    Direction: " << (int)ship->direction << endl;
+		cout << "    Size: " << ship->size;
 
-		for (Coordinate shipCoord : ship.GetCellsOccupiedByShip())
+		for (Coordinate shipCoord : ship->GetCellsOccupiedByShip())
 		{
 			cout << "    " << shipCoord.x << "," << shipCoord.y;
 		}
@@ -96,21 +96,20 @@ void BattleshipGame::GameManager::DEBUG_PrintShipLocations()
 
 void BattleshipGame::GameManager::HandleHit(Coordinate target)
 {
-
-
 	int destroyedShips = 0;
 
-	for (Battleship ship : playerShips)
+	for (int i = 0; i < playerShips.size(); i++)
 	{
-		if (ship.CheckIfHit(target))
+		Battleship *ship = playerShips[i];
+		if (ship->CheckIfHit(target))
 		{
-			cout << "Player " << (int)turn + 1 << "'s ship " << ship.id <<  " was hit! " << target.x << "," << target.y << endl;
-			if (ship.CheckIfDestroyed())
+			cout << "Player " << (int)turn + 1 << "'s ship " << ship->id <<  " was hit! " << target.x << "," << target.y << endl;
+			if (ship->CheckIfDestroyed())
 			{
 				destroyedShips++;
 				cout << "Ship was destroyed!!! " << endl;
 			}
-			cout << "Post Hit: Hit Count: " << ship.CheckHitCount() << endl;
+			cout << "Post Hit: Hit Count: " << ship->CheckHitCount() << endl;
 		}
 	}
 

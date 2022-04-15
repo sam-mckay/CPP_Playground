@@ -8,9 +8,9 @@ namespace BattleshipGame
 	{
 	public:
 		EnemyPlayer();
-		EnemyPlayer(BattleshipBoard _board, vector<Battleship> _ships);
+		EnemyPlayer(BattleshipBoard _board, vector<Battleship*> _ships);
 		
-		vector<Battleship> GetShips() override;
+		vector<Battleship*> GetShips() override;
 		Coordinate TakeTurn();
 	};
 }

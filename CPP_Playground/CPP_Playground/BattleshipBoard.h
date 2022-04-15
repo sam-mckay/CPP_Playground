@@ -22,7 +22,7 @@ namespace BattleshipGame
 		BattleshipBoard(int _rows, int _colums);
 
 		int MaxCellsInBoard();
-		vector<Battleship> GenerateShips(int count, int maxSize);
+		vector<Battleship*> GenerateShips(int count, int maxSize);
 		Coordinate GenerateRandomCoordinate();
 		bool IsValidShipLocation(Battleship ship);
 		bool IsCoordinateOnBoard(Coordinate target);

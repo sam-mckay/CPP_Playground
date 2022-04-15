@@ -11,8 +11,8 @@ namespace BattleshipGame
 		BattleshipBoard playerBoard;
 		BattleshipBoard aiBoard;
 
-		vector<Battleship> playerShips;
-		vector<Battleship> aiPlayerShips;
+		vector<Battleship*> playerShips;
+		vector<Battleship*> aiPlayerShips;
 
 	public:
 		bool isActive;

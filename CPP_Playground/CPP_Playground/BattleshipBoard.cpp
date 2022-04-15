@@ -19,25 +19,25 @@ namespace BattleshipGame
 		return rows * columns;
 	}
 
-	vector<Battleship> BattleshipBoard::GenerateShips(int count, int maxSize)
+	vector<Battleship*> BattleshipBoard::GenerateShips(int count, int maxSize)
 	{
-		vector<Battleship> ships;
+		vector<Battleship*> ships;
 
 		for (int i = 0; i < count; i++)
 		{
-			Battleship ship;
+			Battleship* ship;
 			do
 			{
 				int randSize = rand() % maxSize;
 				Coordinate randLocation = GenerateRandomCoordinate();
 				Direction randDirection = (Direction)(rand() % 4 + 0);
 
-				ship = Battleship(randSize, randLocation, randDirection, i);
-			} while (!IsValidShipLocation(ship));
+				ship = new Battleship(randSize, randLocation, randDirection, i);
+			} while (!IsValidShipLocation(*ship));
 
 			ships.push_back(ship);
 
-			for (Coordinate coord : ship.GetCellsOccupiedByShip())
+			for (Coordinate coord : ship->GetCellsOccupiedByShip())
 			{
 				occupiedCells.push_back(coord);
 			}			

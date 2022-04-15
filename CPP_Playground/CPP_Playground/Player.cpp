@@ -6,7 +6,7 @@ namespace BattleshipGame
     Player::Player()
     {
     }
-    Player::Player(BattleshipBoard _board, vector<Battleship> _ships)
+    Player::Player(BattleshipBoard _board, vector<Battleship*> _ships)
     {
         board = _board;
         ships = _ships;
@@ -14,7 +14,7 @@ namespace BattleshipGame
         srand(time(NULL));
     }
 
-    vector<Battleship> Player::GetShips()
+    vector<Battleship*> Player::GetShips()
     {
         return ships;
     }

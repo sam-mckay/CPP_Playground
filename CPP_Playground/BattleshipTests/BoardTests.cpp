@@ -86,14 +86,14 @@ namespace BoardTests
 
 		TEST_METHOD(CanGenerateSingleShipOnBoard)
 		{
-			vector<Battleship> ships = m_board.GenerateShips(1, 5);
+			vector<Battleship*> ships = m_board.GenerateShips(1, 5);
 
 			Assert::AreEqual(1, (int)ships.size());
 		}
 
 		TEST_METHOD(CanGenerateMultipleShipsOnBoard)
 		{
-			vector<Battleship> ships = m_board.GenerateShips(2, 5);
+			vector<Battleship*> ships = m_board.GenerateShips(2, 5);
 
 			Assert::AreEqual(2, (int)ships.size());
 		}
@@ -127,12 +127,12 @@ namespace BoardTests
 
 		TEST_METHOD(CanValidateShipPostion_Invalid_OccupiesSameCellsAsAnotherShip)
 		{
-			vector<Battleship> ships = m_board.GenerateShips(1, 5);
+			vector<Battleship*> ships = m_board.GenerateShips(1, 5);
 
-			Battleship existingShip = ships.front();
+			Battleship* existingShip = ships.front();
 
-			Coordinate location = Coordinate(existingShip.location.x, existingShip.location.y);
-			Battleship ship = Battleship(5, location, existingShip.direction);
+			Coordinate location = Coordinate(existingShip->location.x, existingShip->location.y);
+			Battleship ship = Battleship(5, location, existingShip->direction);
 
 			bool isValid = m_board.IsValidShipLocation(ship);
 
