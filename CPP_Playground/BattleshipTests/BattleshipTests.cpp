@@ -104,6 +104,23 @@ namespace BattleshipTests
 			Assert::IsFalse(isHit);
 		}
 
+		TEST_METHOD(CanCheckHits_Multiple)
+		{
+			Coordinate shipPosition = Coordinate(5, 5);
+			Battleship ship = Battleship(3, shipPosition, Direction::West);
+
+			Coordinate target = Coordinate(5, 5);
+			Coordinate target2 = Coordinate(4, 5);
+
+			bool isHit = ship.CheckIfHit(target);
+			bool isHit2 = ship.CheckIfHit(target2);
+			
+
+			Assert::IsTrue(isHit);
+			Assert::IsTrue(isHit2);
+			Assert::AreEqual(2, ship.CheckHitCount());
+		}
+
 		TEST_METHOD(ShipDestroyedWhenAllCellsHit)
 		{
 			Coordinate shipPosition = Coordinate(5, 5);
@@ -112,6 +129,22 @@ namespace BattleshipTests
 			Coordinate target = Coordinate(5, 5);
 			Coordinate target2 = Coordinate(4, 5);
 			Coordinate target3 = Coordinate(3, 5);
+
+			ship.CheckIfHit(target);
+			ship.CheckIfHit(target2);
+			ship.CheckIfHit(target3);
+
+			Assert::IsTrue(ship.CheckIfDestroyed());
+		}
+
+		TEST_METHOD(ShipDestroyedWhenAllCellsHit_NonSequential)
+		{
+			Coordinate shipPosition = Coordinate(5, 5);
+			Battleship ship = Battleship(3, shipPosition, Direction::West);
+
+			Coordinate target = Coordinate(4, 5);
+			Coordinate target2 = Coordinate(3, 5);
+			Coordinate target3 = Coordinate(5, 5);
 
 			ship.CheckIfHit(target);
 			ship.CheckIfHit(target2);
@@ -147,5 +180,7 @@ namespace BattleshipTests
 
 			Assert::IsFalse(ship.CheckIfDestroyed());
 		}
+
+		
 	};
 }
