@@ -114,7 +114,7 @@ void BattleshipGame::GameManager::HandleHit(Coordinate target)
 		}
 	}
 
-	if (destroyedShips == ships.size())
+	if (destroyedShips == playerShips.size())
 	{
 		cout << "Game Over " << endl;
 

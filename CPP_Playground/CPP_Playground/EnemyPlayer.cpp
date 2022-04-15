@@ -6,11 +6,11 @@ namespace BattleshipGame
 	{
 	}
 
-	BattleshipGame::EnemyPlayer::EnemyPlayer(BattleshipBoard _board, list<Battleship> _ships) : Player::Player(_board, _ships)
+	BattleshipGame::EnemyPlayer::EnemyPlayer(BattleshipBoard _board, vector<Battleship> _ships) : Player::Player(_board, _ships)
 	{
 	}
 
-	list<Battleship> EnemyPlayer::GetShips()
+	vector<Battleship> EnemyPlayer::GetShips()
 	{
 		return Player::GetShips();
 	}

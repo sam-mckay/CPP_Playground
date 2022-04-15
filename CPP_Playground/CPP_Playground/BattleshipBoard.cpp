@@ -19,9 +19,9 @@ namespace BattleshipGame
 		return rows * columns;
 	}
 
-	list<Battleship> BattleshipBoard::GenerateShips(int count, int maxSize)
+	vector<Battleship> BattleshipBoard::GenerateShips(int count, int maxSize)
 	{
-		list<Battleship> ships;
+		vector<Battleship> ships;
 
 		for (int i = 0; i < count; i++)
 		{

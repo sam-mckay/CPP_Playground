@@ -14,14 +14,14 @@ namespace BattleshipGame
 		list<Coordinate> previousTargets;
 		BattleshipBoard board;
 	public:
-		list<Battleship> ships;
+		vector<Battleship> ships;
 		
 		list<Coordinate> GetPreviousTargets() { return previousTargets; };
 		
 		Player();
-		Player(BattleshipBoard _board, list<Battleship> _ships);
+		Player(BattleshipBoard _board, vector<Battleship> _ships);
 
-		virtual list<Battleship> GetShips();
+		virtual vector<Battleship> GetShips();
 		virtual Coordinate TakeTurn();
 		bool ChoosePreciseTarget(Coordinate target);
 		Coordinate ChooseRandomTarget();
