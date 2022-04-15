@@ -29,7 +29,7 @@ namespace PlayerTests
 			Assert::IsTrue(previousTargets.size() == 1);
 		}
 
-		TEST_METHOD(CanChooseAMultipleTargets)
+		TEST_METHOD(CanChooseMultipleTargets)
 		{
 			m_player.ChooseRandomTarget();
 			m_player.ChooseRandomTarget();
@@ -38,6 +38,25 @@ namespace PlayerTests
 
 			Assert::IsTrue(previousTargets.size() == 2);
 			Assert::IsFalse(previousTargets.front() == previousTargets.back());			
+		}
+
+		TEST_METHOD(CanChooseMultipleTargets_10)
+		{
+			m_player.ChooseRandomTarget();
+			m_player.ChooseRandomTarget();
+			m_player.ChooseRandomTarget();
+			m_player.ChooseRandomTarget();
+			m_player.ChooseRandomTarget();
+			m_player.ChooseRandomTarget();
+			m_player.ChooseRandomTarget();
+			m_player.ChooseRandomTarget();
+			m_player.ChooseRandomTarget();
+			m_player.ChooseRandomTarget();
+
+			list<Coordinate> previousTargets = m_player.GetPreviousTargets();
+
+			Assert::IsTrue(previousTargets.size() == 10);
+			Assert::IsFalse(previousTargets.front() == previousTargets.back());
 		}
 
 		TEST_METHOD(CanFindDuplicateTargets)
