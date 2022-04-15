@@ -9,6 +9,8 @@ namespace BattleshipGame
         Battleship::size = 0;
         Battleship::location = Coordinate(0,0);
         Battleship::direction = Direction::North;
+        Battleship::id = -1;
+        Battleship::hitCells = {};
     }
 
     Battleship::Battleship(int size, Coordinate location, Direction direction)
@@ -16,6 +18,13 @@ namespace BattleshipGame
         Battleship::size = size;
         Battleship::location = location;
         Battleship::direction = direction;
+        Battleship::id = -1;
+        Battleship::hitCells = {};
+    }
+
+    Battleship::Battleship(int size, Coordinate location, Direction direction, int id) : Battleship::Battleship(size, location, direction)
+    {
+        Battleship::id = id;        
     }
 
     bool Battleship::CheckIfHit(Coordinate targetCell)
@@ -24,7 +33,7 @@ namespace BattleshipGame
         {
             if (coord == targetCell)
             {
-                hitCells.push_back(Coordinate(targetCell.x, targetCell.y));
+                hitCells.push_back(targetCell);
                 return true;
             }
         }
@@ -101,6 +110,11 @@ namespace BattleshipGame
 
         Coordinate nextCell = { 0,0 };
         return nextCell;
+    }
+
+    int Battleship::CheckHitCount()
+    {
+        return hitCells.size();
     }
 
 }

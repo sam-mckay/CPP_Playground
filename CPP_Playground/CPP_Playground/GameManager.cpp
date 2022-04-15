@@ -10,30 +10,27 @@ BattleshipGame::GameManager::GameManager()
 
 void BattleshipGame::GameManager::NextTurn()
 {
-	if (turnCount > turnCap)
+	if (turnCount >= turnCap)
 	{
 		isActive = false;
-		cout << "Game Ended as it took too many turns" << endl;
+		cout << "Game ended on turn " << turnCount << " as it took too many turns" << endl;
 	}
 
 	Coordinate selectedTarget;
-	list<Battleship> ships;
 
 	switch (turn)
 	{
 	case Turn::Player1:
 		selectedTarget = player.TakeTurn();		
-		ships = player.GetShips();
 		break;
 	case Turn::Player2:
-		selectedTarget = aiPlayer.TakeTurn();		
-		ships = aiPlayer.GetShips();
+		selectedTarget = aiPlayer.TakeTurn();	
 		break;
 	default:
 		break;
 	}
 
-	HandleHit(selectedTarget, ships);
+	HandleHit(selectedTarget);
 
 	turnCount++;
 }
@@ -41,31 +38,79 @@ void BattleshipGame::GameManager::NextTurn()
 void BattleshipGame::GameManager::NewGame(int shipCount, int boardX, int boardY, int _turnCap)
 {
 	isActive = true;
-	BattleshipBoard playerBoard = BattleshipBoard(boardX, boardY);
-	BattleshipBoard aiBoard = BattleshipBoard(boardX, boardY);
+	playerBoard = BattleshipBoard(boardX, boardY);
+	aiBoard = BattleshipBoard(boardX, boardY);
 
-	list<Battleship> playerShips = playerBoard.GenerateShips(shipCount, 3);
-	list<Battleship> aiPlayerShips = aiBoard.GenerateShips(shipCount, 3);
+	playerShips = playerBoard.GenerateShips(shipCount, 3);
+	aiPlayerShips = aiBoard.GenerateShips(shipCount, 3);
 
 	player = Player(playerBoard, playerShips);
 	aiPlayer = EnemyPlayer(aiBoard, aiPlayerShips);
 
 	turnCap = _turnCap;
+
+	DEBUG_PrintShipLocations();
 }
 
-void BattleshipGame::GameManager::HandleHit(Coordinate target, list<Battleship> ships)
+void BattleshipGame::GameManager::DEBUG_PrintShipLocations() 
 {
+	cout << "Player 1's Ships" << endl;
+	int index = 0;
+	for (Battleship ship : player.GetShips())
+	{
+		cout << "Ship " << index << endl;
+		cout << "    Location: " << ship.location.x << "," << ship.location.y << endl;
+		cout << "    Direction: " << (int)ship.direction << endl;
+		cout << "    Size: " << ship.size;
+		
+		for (Coordinate shipCoord : ship.GetCellsOccupiedByShip())
+		{
+			cout << "    " << shipCoord.x << "," << shipCoord.y;
+		}
+		cout << endl;
+		cout << endl;
+		index++;
+	}
+
+	cout << "Player 2's Ships" << endl;
+	index = 0;
+	for (Battleship ship : aiPlayer.GetShips())
+	{
+		cout << "Ship " << index << endl;
+		cout << "    Location: " << ship.location.x << "," << ship.location.y << endl;
+		cout << "    Direction: " << (int)ship.direction << endl;
+		cout << "    Size: " << ship.size;
+
+		for (Coordinate shipCoord : ship.GetCellsOccupiedByShip())
+		{
+			cout << "    " << shipCoord.x << "," << shipCoord.y;
+		}
+		cout << endl;
+		index++;
+	}
+
+	cout << endl;
+	cout << endl;
+	cout << endl;
+}
+
+void BattleshipGame::GameManager::HandleHit(Coordinate target)
+{
+
+
 	int destroyedShips = 0;
 
-	for (Battleship ship : ships)
+	for (Battleship ship : playerShips)
 	{
 		if (ship.CheckIfHit(target))
 		{
+			cout << "Player " << (int)turn + 1 << "'s ship " << ship.id <<  " was hit! " << target.x << "," << target.y << endl;
 			if (ship.CheckIfDestroyed())
 			{
 				destroyedShips++;
+				cout << "Ship was destroyed!!! " << endl;
 			}
-
+			cout << "Post Hit: Hit Count: " << ship.CheckHitCount() << endl;
 		}
 	}
 
@@ -87,4 +132,6 @@ void BattleshipGame::GameManager::HandleHit(Coordinate target, list<Battleship> 
 
 		isActive = false;
 	}
+
+
 }

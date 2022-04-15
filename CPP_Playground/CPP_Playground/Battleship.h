@@ -11,7 +11,9 @@ namespace BattleshipGame
 	{
 	private: 
 		vector<Coordinate> hitCells;
+
 	public:
+		int id;
 		int size;
 		Direction direction;
 		Coordinate location;
@@ -19,9 +21,12 @@ namespace BattleshipGame
 
 		Battleship();
 		Battleship(int size, Coordinate location, Direction direction);
+		Battleship(int size, Coordinate location, Direction direction, int id);
+
 
 		bool CheckIfHit(Coordinate targetCell);
 		bool CheckIfDestroyed();
+		int CheckHitCount();
 		vector<Coordinate> GetCellsOccupiedByShip();
 		Coordinate NextCellInDirection(Coordinate currentCell);
 	};

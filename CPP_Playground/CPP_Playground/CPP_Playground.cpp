@@ -19,7 +19,7 @@ int main()
 
 
     BattleshipGame::GameManager game;
-    game.NewGame(1, 10, 10);
+    game.NewGame(1, 10, 10, 50000);
 
     while (game.isActive)
     {

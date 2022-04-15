@@ -28,11 +28,11 @@ namespace BattleshipGame
 			Battleship ship;
 			do
 			{
-				int randSize = rand() % maxSize + 1;
+				int randSize = rand() % maxSize;
 				Coordinate randLocation = GenerateRandomCoordinate();
 				Direction randDirection = (Direction)(rand() % 4 + 0);
 
-				ship = Battleship(randSize, randLocation, randDirection);
+				ship = Battleship(randSize, randLocation, randDirection, i);
 			} while (!IsValidShipLocation(ship));
 
 			ships.push_back(ship);

@@ -21,8 +21,6 @@ namespace BattleshipGame
 
     Coordinate Player::TakeTurn()
     {
-        cout << "Test" << endl;
-
         return ChooseRandomTarget();
     }
 

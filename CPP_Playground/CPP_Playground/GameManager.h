@@ -7,6 +7,13 @@ namespace BattleshipGame
 {
 	class GameManager
 	{
+	private: 
+		BattleshipBoard playerBoard;
+		BattleshipBoard aiBoard;
+
+		list<Battleship> playerShips;
+		list<Battleship> aiPlayerShips;
+
 	public:
 		bool isActive;
 		Player player;
@@ -20,6 +27,9 @@ namespace BattleshipGame
 
 		void NextTurn();
 		void NewGame(int shipCount, int boardX, int boardY, int _turnCap = 10);
-		void HandleHit(Coordinate target, list<Battleship> ships);
+		void HandleHit(Coordinate target);
+
+		//DEBUG
+		void DEBUG_PrintShipLocations();
 	};
 }
